@@ -1,7 +1,7 @@
 #include "main.h"
 #include "keyboardGeometry.h"
 #include <winuser.h>
-#include <ctime.h>
+#include <ctime>
 
 LRESULT WINAPI HookedCode(int nCode, WPARAM wParam, LPARAM lParam)
 {
