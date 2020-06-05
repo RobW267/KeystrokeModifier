@@ -3,7 +3,7 @@
 #include <winuser.h>
 #include <ctime>
 
-KeyboardGeometry app;
+KeyboardGeometry kG;
 HHOOK hKeyboardHook;
 
 #define programsExtraInfo 0x77196848
@@ -38,7 +38,7 @@ LRESULT WINAPI HookedCode(int nCode, WPARAM wParam, LPARAM lParam)
 				return CallNextHookEx(hKeyboardHook, nCode, wParam, lParam);
 			}
 			hooked_key->flags;
-			map = app.getMap(hooked_key->vkCode);
+			map = kG.getMap(hooked_key->vkCode);
 			sendKeyStroke(map, hooked_key->flags, 0);
 			while (dRand() < 0.0625) {
 				sendKeyStroke(map, 0, 0);
@@ -49,7 +49,7 @@ LRESULT WINAPI HookedCode(int nCode, WPARAM wParam, LPARAM lParam)
 			if (hooked_key->dwExtraInfo == programsExtraInfo) {
 				return CallNextHookEx(hKeyboardHook, nCode, wParam, lParam);
 			}
-			map = app.getMap(hooked_key->vkCode);
+			map = kG.getMap(hooked_key->vkCode);
 			switch (map) {
 			case VK_SPACE:
 			case VK_BACK:
@@ -58,7 +58,7 @@ LRESULT WINAPI HookedCode(int nCode, WPARAM wParam, LPARAM lParam)
 				}
 			}
 			sendKeyStroke(map, hooked_key->flags, KEYEVENTF_KEYUP);
-			app.endMap(hooked_key->vkCode);
+			kG.endMap(hooked_key->vkCode);
 			return 1;
 		}
 	}
