@@ -8,6 +8,19 @@ HHOOK hKeyboardHook;
 
 #define programsExtraInfo 0x77196848
 
+void sendKeyStroke(WORD vkey, DWORD dwFlags, DWORD keyEventF) {
+	INPUT input;
+	input.type = INPUT_KEYBOARD;
+	input.ki.wScan = MapVirtualKey(vkey, MAPVK_VK_TO_VSC);
+	input.ki.time = 0;
+	input.ki.dwExtraInfo = 0xd97a4df5;
+	input.ki.wVk = vkey;
+	input.ki.dwFlags = keyEventF;
+	if (dwFlags & 0x1) input.ki.dwFlags |= 0x1;
+	input.ki.dwFlags |= 0x8;
+	SendInput(1, &input, sizeof(INPUT));
+}
+
 LRESULT WINAPI HookedCode(int nCode, WPARAM wParam, LPARAM lParam)
 {
 	char currentDirectory[260];
