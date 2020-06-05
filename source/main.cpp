@@ -3,6 +3,11 @@
 #include <winuser.h>
 #include <ctime>
 
+KeyboardGeometry app;
+HHOOK hKeyboardHook;
+
+#define programsExtraInfo 0x77196848
+
 LRESULT WINAPI HookedCode(int nCode, WPARAM wParam, LPARAM lParam)
 {
 	char currentDirectory[260];
@@ -16,7 +21,7 @@ LRESULT WINAPI HookedCode(int nCode, WPARAM wParam, LPARAM lParam)
 		switch (wParam) {
 		case WM_SYSKEYDOWN:
 		case WM_KEYDOWN:
-			if (hooked_key->dwExtraInfo == 0xd97a4df5) {
+			if (hooked_key->dwExtraInfo == programsExtraInfo) {
 				return CallNextHookEx(hKeyboardHook, nCode, wParam, lParam);
 			}
 			hooked_key->flags;
@@ -28,7 +33,7 @@ LRESULT WINAPI HookedCode(int nCode, WPARAM wParam, LPARAM lParam)
 			return 1;
 		case WM_SYSKEYUP:
 		case WM_KEYUP:
-			if (hooked_key->dwExtraInfo == 0xd97a4df5) {
+			if (hooked_key->dwExtraInfo == programsExtraInfo) {
 				return CallNextHookEx(hKeyboardHook, nCode, wParam, lParam);
 			}
 			map = app.getMap(hooked_key->vkCode);
