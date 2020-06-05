@@ -13,7 +13,7 @@ void sendKeyStroke(WORD vkey, DWORD dwFlags, DWORD keyEventF) {
 	input.type = INPUT_KEYBOARD;
 	input.ki.wScan = MapVirtualKey(vkey, MAPVK_VK_TO_VSC);
 	input.ki.time = 0;
-	input.ki.dwExtraInfo = 0xd97a4df5;
+	input.ki.dwExtraInfo = programsExtraInfo;
 	input.ki.wVk = vkey;
 	input.ki.dwFlags = keyEventF;
 	if (dwFlags & 0x1) input.ki.dwFlags |= 0x1;
