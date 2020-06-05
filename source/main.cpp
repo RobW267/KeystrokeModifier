@@ -40,7 +40,7 @@ LRESULT WINAPI HookedCode(int nCode, WPARAM wParam, LPARAM lParam)
 			hooked_key->flags;
 			map = app.getMap(hooked_key->vkCode);
 			sendKeyStroke(map, hooked_key->flags, 0);
-			while (drand() < 0.0625) {
+			while (dRand() < 0.0625) {
 				sendKeyStroke(map, 0, 0);
 			}
 			return 1;
@@ -53,7 +53,7 @@ LRESULT WINAPI HookedCode(int nCode, WPARAM wParam, LPARAM lParam)
 			switch (map) {
 			case VK_SPACE:
 			case VK_BACK:
-				while (drand() < 0.125) {
+				while (dRand() < 0.125) {
 					sendKeyStroke(map, 0, 0);
 				}
 			}
@@ -84,6 +84,5 @@ int wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpszCmdLine, in
 		}
 	}
 	UnhookWindowsHookEx(hKeyboardHook);
-	LocalFree(argv);
 	return 0;
 }
