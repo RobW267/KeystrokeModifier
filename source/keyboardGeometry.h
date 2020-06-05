@@ -1,7 +1,7 @@
 #pragma once
 #include "geometry.h"
 double dRand();
-struct keyboardGeometry;
+struct keyboardGeometry
 {
 public:
   Geometry keyboard;
