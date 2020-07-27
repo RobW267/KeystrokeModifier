@@ -95,8 +95,5 @@ NTSTATUS DriverEntry(PDRIVER_OBJECT DriverObject, PUNICODE_STRING RegistryPath) 
 
 	DriverObject->MajorFunction[IRP_MJ_READ] = DispatchRead;
 
-	while (!NT_SUCCESS(MyAttachDevice(DriverObject))) {
-		
-	}
-	return 0;
+	return NT_SUCCESS(MyAttachDevice(DriverObject));
 }
